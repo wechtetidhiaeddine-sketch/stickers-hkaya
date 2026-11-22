@@ -3,74 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sticker Design Quiz</title>
+<title>stickers-hkaya – Cute stickers for everyone</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="medium">
-<div class="blobs" aria-hidden="true"></div>
-<div id="stickers" aria-hidden="true"></div>
-<button id="mute" class="icon-btn" aria-label="Toggle sound">🔊</button>
-<div id="loader" class="loader hidden"><div class="peel"></div><p>Peeling the sticker…</p></div>
+<body>
+
+<header class="nav">
+  <a href="#home" class="logo"><span class="logo-bee">🐝</span> stickers-hkaya</a>
+  <nav aria-label="Main">
+    <a href="#shop">Shop</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="cart-btn" id="openCart" aria-label="Open cart">
+    🛒 <span id="cartCount" class="badge">0</span>
+  </button>
+</header>
 
 <main>
-<!-- HOME -->
-<section id="home" class="screen active">
-  <div class="glass hero">
-    <svg class="logo" viewBox="0 0 80 80" aria-label="Sticker logo">
-      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a855f7"/><stop offset="1" stop-color="#ec4899"/></linearGradient></defs>
-      <path d="M14 8h40l18 18v40a8 8 0 0 1-8 8H14a8 8 0 0 1-8-8V16a8 8 0 0 1 8-8z" fill="#fff" stroke="url(#g)" stroke-width="4"/>
-      <path d="M54 8v12a6 6 0 0 0 6 6h12z" fill="url(#g)"/>
-      <path d="M40 24l5 11 12 1-9 8 3 12-11-7-11 7 3-12-9-8 12-1z" fill="url(#g)"/>
-    </svg>
-    <h1>Sticker Design Quiz</h1>
-    <p class="sub">Test Your Creativity &amp; Design Knowledge!</p>
-    <p id="welcome" class="welcome">Hi, creator! Tell us your name to begin.</p>
-    <input id="name" type="text" maxlength="20" placeholder="Enter your name" autocomplete="off" aria-label="Your name">
-    <p id="err" class="err"></p>
-    <div class="levels" role="radiogroup" aria-label="Difficulty">
-      <button class="level" data-level="easy" data-n="5" role="radio"><span class="em">🌱</span><b>Easy</b><i>5 questions</i><small>For beginners. Basic sticker and design knowledge.</small></button>
-      <button class="level" data-level="medium" data-n="10" role="radio"><span class="em">🎨</span><b>Medium</b><i>10 questions</i><small>For intermediate users. Photo editing and format concepts.</small></button>
-      <button class="level" data-level="hard" data-n="15" role="radio"><span class="em">🔥</span><b>Hard</b><i>15 questions</i><small>For advanced users. Layers, typography, color and montage.</small></button>
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <h1>Stick a little joy on everything.</h1>
+      <p>Cute, waterproof vinyl stickers for laptops, bottles, notebooks and phones. Made for kids, teens and grown-ups.</p>
+      <div class="hero-actions">
+        <a href="#shop" class="btn">Shop stickers</a>
+        <span class="hint">Free shipping over $25</span>
+      </div>
     </div>
-    <button id="start" class="cta">START QUIZ</button>
-  </div>
-</section>
+    <div class="hero-art" aria-hidden="true">
+      <div class="sticker s1">🐱</div>
+      <div class="sticker s2">🌈</div>
+      <div class="sticker s3">🍓</div>
+      <div class="sticker s4">🚀</div>
+      <div class="sticker s5">🌸</div>
+    </div>
+  </section>
 
-<!-- QUIZ -->
-<section id="quiz" class="screen">
-  <div class="glass qwrap">
-    <header class="qhead">
-      <div><b id="qname"></b><span id="qlevel" class="pill"></span></div>
-      <div class="pill">Score: <b id="live">0</b></div>
-    </header>
-    <div class="meta">
-      <span id="qcount">Question 1/5</span>
-      <svg class="ring" viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" class="ring-bg"/><circle id="ringfg" cx="30" cy="30" r="26" class="ring-fg"/><text id="tnum" x="30" y="37" text-anchor="middle">10</text></svg>
+  <section class="shop" id="shop">
+    <h2>Pick your stickers</h2>
+    <div class="filters" id="filters" role="group" aria-label="Filter by group">
+      <button class="chip active" data-f="all">All</button>
+      <button class="chip" data-f="kids">Kids</button>
+      <button class="chip" data-f="teens">Teens</button>
+      <button class="chip" data-f="adults">Grown-ups</button>
     </div>
-    <div class="bar"><div id="bar"></div></div>
-    <div id="qcard" class="qcard"><h2 id="qtext"></h2><div id="answers" class="answers"></div></div>
-  </div>
-  <div id="fb" class="fb"><span id="fbem"></span><p id="fbmsg"></p></div>
-</section>
+    <div class="grid" id="grid"></div>
+  </section>
 
-<!-- RESULTS -->
-<section id="results" class="screen">
-  <div class="glass res">
-    <h2 id="rtitle"></h2>
-    <div class="donut"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle id="donut" cx="60" cy="60" r="52" class="ring-fg"/></svg><div id="pct">0%</div></div>
-    <p id="rmsg" class="rmsg"></p>
-    <div class="stats">
-      <div><b id="rscore">0</b><span>Final score</span></div>
-      <div><b id="rtotal">0</b><span>Questions</span></div>
-      <div class="ok"><b id="rright">0</b><span>Correct</span></div>
-      <div class="bad"><b id="rwrong">0</b><span>Incorrect or unanswered</span></div>
+  <section class="contact" id="contact">
+    <div class="contact-card">
+      <h2>Say hi to us</h2>
+      <p>Questions, custom orders or a sticker idea? We reply within a day.</p>
+      <form id="contactForm" novalidate>
+        <label>Name
+          <input type="text" id="name" placeholder="Your name" required>
+        </label>
+        <label>Email
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </label>
+        <p class="form-msg" id="formMsg" role="status"></p>
+        <button class="btn" type="submit">Send message</button>
+      </form>
     </div>
-    <div class="actions"><button id="again" class="cta">PLAY AGAIN</button><button id="homeBtn" class="cta ghost">HOME</button></div>
-  </div>
-</section>
+  </section>
 </main>
+
+<footer class="footer">
+  <div class="logo">🐝 Stickers-hkaya</div>
+  <nav aria-label="Footer">
+    <a href="#shop">Shop</a>
+    <a href="#contact">Contact</a>
+    <a href="#home">Back to top</a>
+  </nav>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Shopping cart" aria-hidden="true">
+  <div class="drawer-head">
+    <h3>Your cart</h3>
+    <button class="close" id="closeCart" aria-label="Close cart">✕</button>
+  </div>
+  <ul class="cart-list" id="cartList"></ul>
+  <div class="drawer-foot">
+    <div class="total"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+    <button class="btn full" id="checkout">Checkout</button>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status"></div>
 <script src="script.js"></script>
 </body>
 </html>
